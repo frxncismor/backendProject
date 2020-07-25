@@ -1,22 +1,24 @@
-// Carga la libreria de express
-var express = require('express');
+// Carga la librería dotenv
+require('dotenv').config();
+
+// Constantes
+const express = require('express');
+const cors = require('cors')
 const { dbConnection } = require('./database/config');
+
 // Inicializar variables
-var app = express();
+const app = express();
+
+// Configurar CORS
+app.use(cors())
+
+// Base de datos
 dbConnection();
 
-
-// Primer ruta
-app.get('/', (req, resp, next) => {
-    resp.status(200).json({
-        ok: true,
-        mensaje: 'Peticion realizada'
-    })
-});
-
+// Rutas
+app.use('/api/usuarios', require('./routes/usuarios'));
 
 // Escuchar peticiones
-app.listen(3200, () => {
-    // console.log('Express server puerto 3000 online');
-    console.log('Express server puerto 3200: \x1b[32m%s\x1b[0m', ' online');
+app.listen(process.env.PORT, () => {
+    console.log('Express server puerto ' + process.env.PORT + ' \x1b[32m%s\x1b[0m', ' online');
 });

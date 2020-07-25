@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dbConnection = async () => {
     try {
         mongoose.connect(
-            'mongodb+srv://mean_user:zbPcvawFG1LeTnsC@cluster0.atlk9.mongodb.net/hospitaldb', {
+            process.env.DB_CNN, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useCreateIndex: true,
@@ -11,6 +11,7 @@ const dbConnection = async () => {
         );
 
         console.log('Db online');
+        // console.log(process.env.DB_CNN);
 
     } catch (error) {
         console.error(error);
